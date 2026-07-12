@@ -1,0 +1,8 @@
+venv/
+__pycache__/
+*.pyc
+.env
+.chroma_rag_demo/
+.lora_fine_tune_demo/
+credentials.json
+token.json

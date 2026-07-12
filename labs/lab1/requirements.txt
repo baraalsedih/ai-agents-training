@@ -1,0 +1,27 @@
+# ============================================================
+# Lab environment requirements — Session 2: Tool Calling
+# Install these inside a virtual environment (see SETUP.md)
+#   pip install -r requirements.txt
+# Versions are pinned so everyone runs the exact same set.
+# ============================================================
+
+langchain==0.3.27
+langchain-community==0.3.31
+langchain-huggingface==0.3.1
+langchain-ollama==0.3.10
+langgraph==0.6.11
+chromadb==1.4.1
+sentence-transformers==5.1.2
+pydantic==2.12.4
+python-dotenv==1.1.1
+wikipedia-api==0.15.0
+huggingface-hub==0.36.0
+
+# Lab 5 (bonus) — Gmail + Google Calendar agent, see GOOGLE_SETUP.md
+google-api-python-client==2.198.0
+google-auth-httplib2==0.4.0
+google-auth-oauthlib==1.4.0
+
+# Lab 6 (bonus) — LoRA fine-tuning demo (torch/transformers are already
+# pulled in by sentence-transformers above)
+peft==0.19.1

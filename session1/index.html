@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>الجلسة الأولى: AI Systems, Workflows, and Agents</title>
+<meta name="description" content="عرض تفاعلي للجلسة الأولى من دورة AI Agents — أنظمة الذكاء الاصطناعي، الـ Workflows، والـ Agents">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- Top bar: progress + counter -->
+  <header class="topbar">
+    <div class="topbar-row">
+      <div class="brand">
+        <span class="brand-course">AI Agents Course</span>
+        <span class="brand-sep">·</span>
+        <span class="brand-session">الجلسة الأولى</span>
+      </div>
+      <div class="topbar-actions">
+        <span class="slide-counter" id="slideCounter">1 / 20</span>
+      </div>
+    </div>
+    <div class="progress-track" aria-hidden="true">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </header>
+
+  <!-- Slide deck -->
+  <main class="deck" id="deck" tabindex="0" aria-live="polite">
+    <!-- slides injected by script.js -->
+  </main>
+
+  <!-- Bottom control bar -->
+  <footer class="controls">
+    <div class="controls-group controls-left">
+      <button id="printBtn" class="ctrl-btn ghost" type="button">
+        <span class="ctrl-icon">🖨️</span><span class="ctrl-label">طباعة / PDF</span>
+      </button>
+    </div>
+
+    <div class="controls-group timer-widget" id="timerWidget">
+      <span class="timer-display" id="timerDisplay">--:--</span>
+      <button id="timerToggle" class="ctrl-btn timer-btn" type="button">ابدأ العداد</button>
+      <button id="timerReset" class="ctrl-btn ghost timer-btn" type="button" title="إعادة ضبط العداد">↺</button>
+    </div>
+
+    <div class="controls-group nav-buttons">
+      <button id="prevBtn" class="ctrl-btn nav-btn" type="button">السابق</button>
+      <button id="nextBtn" class="ctrl-btn nav-btn primary" type="button">التالي</button>
+    </div>
+  </footer>
+
+</div>
+
+<script src="slides.js"></script>
+<script src="quiz.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
