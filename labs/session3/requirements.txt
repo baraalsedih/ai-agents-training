@@ -1,0 +1,18 @@
+# ============================================================
+# Lab environment requirements — Session 3: Living Knowledge Base (RAG)
+# Install these inside a virtual environment (see README.md)
+#   pip install -r requirements.txt
+# Versions are pinned so everyone runs the exact same set.
+# Everything here runs 100% locally through Ollama — no API keys needed.
+# ============================================================
+
+langchain==1.3.13
+langchain-community==0.4.2
+langchain-chroma==1.1.0
+langchain-ollama==1.1.0
+langchain-text-splitters==1.1.2
+chromadb==1.5.9
+pypdf==6.14.2
+docx2txt==0.9
+pydantic==2.13.4
+flask==3.1.3

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الجلسة الثالثة — قاعدة المعرفة</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <span class="brand">📚 الجلسة الثالثة — قاعدة المعرفة</span>
+  <span class="brand-sub">واجهة محلية · تعمل بالكامل عبر <span class="en">Ollama</span>، لا تُغادر بياناتك هذا الجهاز</span>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="ask">اسأل</button>
+  <button class="tab-btn" data-tab="ingest">إدخال</button>
+  <button class="tab-btn" data-tab="report">تقرير</button>
+</nav>
+
+<main class="content">
+
+  <!-- ASK TAB -->
+  <section id="tab-ask" class="tab-panel active">
+    <h2>اسأل أرشيفك</h2>
+    <p class="hint">اكتب سؤالك بالعربية أو الإنجليزية. تُبنى الإجابات فقط من مستنداتك المفهرسة، مع ذكر المصادر أدناه.</p>
+    <div class="ask-row">
+      <input type="text" id="questionInput" placeholder="اكتب سؤالك هنا..." dir="auto">
+      <select id="filterSelect">
+        <option value="">كل الفئات</option>
+      </select>
+      <button id="askBtn" class="btn primary">اسأل</button>
+    </div>
+    <div id="askStatus" class="status"></div>
+    <div id="askResult" class="result" style="display:none;">
+      <h3>الإجابة</h3>
+      <p id="answerText" class="answer-text" dir="auto"></p>
+      <h3>المصادر</h3>
+      <ul id="sourcesList" class="sources-list"></ul>
+    </div>
+  </section>
+
+  <!-- INGEST TAB -->
+  <section id="tab-ingest" class="tab-panel">
+    <h2>بناء / تحديث قاعدة المعرفة</h2>
+    <p class="hint">يفحص مجلد <code class="en">my_documents/</code>، ويعالج فقط الملفات الجديدة أو المعدَّلة منذ آخر تشغيل.</p>
+    <div class="ingest-actions">
+      <button id="checkBtn" class="btn">تحقق من التغييرات</button>
+      <button id="runBtn" class="btn primary" disabled>ابنِ قاعدة المعرفة</button>
+    </div>
+    <div id="ingestPreview" class="preview" style="display:none;"></div>
+    <div id="ingestStatus" class="status"></div>
+    <div id="ingestLog" class="log" style="display:none;"></div>
+    <div id="ingestSummary" class="summary" style="display:none;"></div>
+  </section>
+
+  <!-- REPORT TAB -->
+  <section id="tab-report" class="tab-panel">
+    <h2>جرد قاعدة المعرفة</h2>
+    <button id="reportBtn" class="btn primary">تحديث التقرير</button>
+    <div id="reportStatus" class="status"></div>
+    <div id="reportResult" class="report-result" style="display:none;"></div>
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
