@@ -1,0 +1,30 @@
+# ============================================================
+# Lab environment requirements — Session 7: Unified System + Dashboard
+# Install these inside a virtual environment (see README.md)
+#   pip install -r requirements.txt
+# This is the exact superset needed to import Sessions 3, 5, and 6
+# directly (run.py/dashboard.py import their real modules by sibling
+# path, never copies) -- same pinned versions as labs/session6/requirements.txt,
+# since evaluate.py (called as a subprocess) and the agents this file
+# imports directly must resolve to the exact same dependency versions.
+# Session 4 is NOT listed here on purpose: it is only ever reached
+# through Session 5's agents/source_analyst.py, which calls it as a
+# separate OS process in its OWN venv -- see that module's docstring.
+# Everything here runs 100% locally through Ollama — no API keys needed.
+# ============================================================
+
+langchain==1.3.13
+langchain-community==0.4.2
+langchain-chroma==1.1.0
+langchain-ollama==1.1.0
+langchain-text-splitters==1.1.2
+chromadb==1.5.9
+pypdf==6.14.2
+docx2txt==0.9
+pydantic==2.13.4
+numpy==2.5.1
+
+langgraph==1.2.9
+langgraph-checkpoint-sqlite==3.1.0
+
+pyyaml==6.0.3

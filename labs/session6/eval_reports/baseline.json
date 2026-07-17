@@ -1,0 +1,10 @@
+{
+  "date": "2026-07-16",
+  "per_dimension": {
+    "correctness": 3.2,
+    "groundedness": 4.266666666666667,
+    "completeness": 2.933333333333333,
+    "honesty": 4.466666666666667
+  },
+  "overall": 3.716666666666667
+}

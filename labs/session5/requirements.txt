@@ -1,0 +1,24 @@
+# ============================================================
+# Lab environment requirements — Session 5: Multi-Agent Team (Supervisor)
+# Install these inside a virtual environment (see README.md)
+#   pip install -r requirements.txt
+# Versions are pinned so everyone runs the exact same set. Same core stack
+# as labs/session3/ and labs/session4/ (this team's agents feed and query
+# that same knowledge base), plus numpy for the consistency auditor's
+# terminology clustering.
+# Everything here runs 100% locally through Ollama — no API keys needed.
+# ============================================================
+
+langchain==1.3.13
+langchain-community==0.4.2
+langchain-chroma==1.1.0
+langchain-ollama==1.1.0
+langchain-text-splitters==1.1.2
+chromadb==1.5.9
+pypdf==6.14.2
+docx2txt==0.9
+pydantic==2.13.4
+numpy==2.5.1
+
+langgraph==1.2.9
+langgraph-checkpoint-sqlite==3.1.0

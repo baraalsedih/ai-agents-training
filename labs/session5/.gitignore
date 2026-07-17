@@ -1,0 +1,7 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+reports/
+glossary.json
+team_graph.mmd

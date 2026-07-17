@@ -1,0 +1,13 @@
+# ============================================================
+# Lab environment requirements — Session 3: LCEL + SQL Agent
+# Install these inside a virtual environment (see SETUP.md)
+#   pip install -r requirements.txt
+# Versions are pinned so everyone runs the exact same set.
+# ============================================================
+
+langchain==0.3.27
+langchain-community==0.3.31
+langchain-huggingface==0.3.1
+langchain-ollama==0.3.10
+SQLAlchemy==2.0.51
+python-dotenv==1.1.1

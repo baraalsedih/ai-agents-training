@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>لوحة المتابعة — نظامك</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f6fb; --surface: #ffffff; --surface-alt: #f1f3fa;
+    --border: #e3e7f2; --text: #1c2333; --text-muted: #5c6478;
+    --primary: #4b4ee0; --primary-dark: #383bb8; --accent: #14b8a6;
+    --warn: #f59e0b; --warn-light: #fef3e0; --danger: #ef4444;
+    --success: #22c55e; --shadow: 0 10px 30px rgba(28,35,51,.08);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 32px 24px 60px; background: var(--bg); color: var(--text);
+    font-family: 'Tajawal', sans-serif; direction: rtl;
+  }
+  h1, h2, h3, h4 { font-family: 'Cairo', sans-serif; margin: 0; }
+  .en { direction: ltr; unicode-bidi: isolate; font-family: 'Cairo', sans-serif; font-weight: 600; color: var(--primary-dark); }
+  header.page-header { max-width: 1100px; margin: 0 auto 24px; }
+  header.page-header h1 { font-size: 26px; font-weight: 900; }
+  header.page-header p { color: var(--text-muted); font-size: 13.5px; margin-top: 6px; }
+  .grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+    box-shadow: var(--shadow); padding: 22px 24px;
+  }
+  .card-title { font-size: 17px; font-weight: 800; display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .subhead { font-size: 13.5px; font-weight: 700; color: var(--text-muted); margin: 16px 0 8px; }
+  .subhead:first-child { margin-top: 0; }
+  .stat-row { display: flex; gap: 14px; margin-bottom: 10px; }
+  .stat-tile { background: var(--surface-alt); border-radius: 12px; padding: 10px 16px; display: flex; flex-direction: column; gap: 2px; }
+  .stat-num { font-size: 22px; font-weight: 900; color: var(--primary-dark); }
+  .stat-label { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
+  .bar-chart { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+  .bar-row { display: flex; align-items: center; gap: 8px; font-size: 12.5px; }
+  .bar-label { width: 84px; flex: 0 0 auto; color: var(--text-muted); }
+  .bar-track { flex: 1; background: var(--surface-alt); border-radius: 6px; height: 10px; overflow: hidden; }
+  .bar-fill { display: block; height: 100%; background: var(--primary); border-radius: 6px; }
+  .bar-count { width: 28px; flex: 0 0 auto; text-align: left; font-weight: 700; }
+  .decision-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 12.8px; color: var(--text); }
+  .decision-list li { border-right: 3px solid var(--primary); padding-right: 10px; }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+  .chip { background: var(--surface-alt); border-radius: 999px; padding: 4px 12px; font-size: 12px; font-weight: 700; }
+  .chip-warn { background: var(--warn-light); color: #92400e; }
+  .activity-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 12.8px; }
+  .activity-list li { border-bottom: 1px dashed var(--border); padding-bottom: 8px; }
+  .activity-kind { font-weight: 800; color: var(--primary-dark); }
+  .activity-meta { color: var(--text-muted); font-size: 11.5px; margin-right: 6px; }
+  .badge { font-size: 11px; border-radius: 999px; padding: 2px 8px; font-weight: 700; }
+  .badge-good { background: #e7f9ee; color: #166534; }
+  .badge-bad { background: #fdecec; color: #991b1b; }
+  .badge-neutral { background: var(--surface-alt); color: var(--text-muted); }
+  .empty-note { color: var(--text-muted); font-size: 13px; background: var(--surface-alt); border-radius: 10px; padding: 10px 14px; }
+  .fine-print { color: var(--text-muted); font-size: 11.3px; margin-top: 10px; }
+  footer.page-footer { max-width: 1100px; margin: 30px auto 0; color: var(--text-muted); font-size: 11.5px; text-align: center; }
+</style>
+</head>
+<body>
+<header class="page-header">
+  <h1>🧭 لوحة المتابعة</h1>
+  <p>تُولَّد عند الطلب من بيانات النظام الفعلية — وُلِّدت في: 2026-07-16 17:32</p>
+</header>
+<div class="grid">
+  <section class="card">
+    <div class="card-title">📚 صحة قاعدة المعرفة</div>
+    
+    <div class="stat-row">
+      <div class="stat-tile"><span class="stat-num">15</span><span class="stat-label">مقطع مفهرَس</span></div>
+      <div class="stat-tile"><span class="stat-num">6</span><span class="stat-label">مستند</span></div>
+    </div>
+    <div class="bar-chart"><div class="bar-row"><span class="bar-label">Idea</span><span class="bar-track"><span class="bar-fill" style="width:17%"></span></span><span class="bar-count">1</span></div><div class="bar-row"><span class="bar-label">Decision</span><span class="bar-track"><span class="bar-fill" style="width:83%"></span></span><span class="bar-count">5</span></div><div class="bar-row"><span class="bar-label">Evidence</span><span class="bar-track"><span class="bar-fill" style="width:50%"></span></span><span class="bar-count">3</span></div><div class="bar-row"><span class="bar-label">Open Question</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bar-count">6</span></div><div class="bar-row"><span class="bar-label">Unclassified</span><span class="bar-track"><span class="bar-fill" style="width:0%"></span></span><span class="bar-count">0</span></div></div>
+    <p class="fine-print">آخر إدخال: 2026-07-16T10:09:02</p>
+    
+  </section>
+  <section class="card">
+    <div class="card-title">🧭 دعم القرار</div>
+    <h4 class="subhead">الأسئلة المفتوحة في أرشيفك (6)</h4><ul class="decision-list"><li><strong>خطة_العمل.md</strong> — The founder is still undecided on two key aspects of their business expansion: obtaining separate commercial licenses for each city and building a mobile app or using a responsive web interface.</li><li><strong>دراسة_سوق_مصغرة.md</strong> — The study&#x27;s sample size was insufficient for small-town restaurants outside major cities, leaving open questions about their market behavior.</li><li><strong>قرار_مجلس_استشاري_توسّع_السلاسل.md</strong> — The integration of a new sales channel with existing strategies is still undecided.</li><li><strong>محادثة_استشارية.txt</strong> — The founder is discussing with a growth advisor whether to enter the first funding round with actual user numbers but no revenue or wait for the first real payments.</li><li><strong>محادثة_استشارية.txt</strong> — The founder discusses potential strategies for scaling up their business with their advisor, raising several open questions about future plans.</li><li><strong>ملاحظات_اجتماع.txt</strong> — The founder is still undecided on whether to adopt a fixed monthly subscription fee or variable pricing based on the number of items managed.</li></ul><h4 class="subhead">آخر فحص اتساق (المدقق)</h4><div class="chip-row"><span class="chip">🔁 تكرارات: 0</span><span class="chip chip-warn">⚠️ تعارضات: 0</span><span class="chip">🕳️ فجوات: 6</span><span class="chip">🏷️ مصطلحات: 3</span></div><ul class="decision-list"><li>`محادثة_استشارية.txt`: The founder is discussing with a growth advisor whether to enter the first funding round with actual user numbers but no revenue or wait for the first real payments. (nearest decision/evidence distance: 0.381)</li><li>`خطة_العمل.md`: The founder is still undecided on two key aspects of their business expansion: obtaining separate commercial licenses for each city and building a mobile app or using a responsive web interface. (nearest decision/evidence distance: 0.370)</li><li>`ملاحظات_اجتماع.txt`: The founder is still undecided on whether to adopt a fixed monthly subscription fee or variable pricing based on the number of items managed. (nearest decision/evidence distance: 0.295)</li><li>`قرار_مجلس_استشاري_توسّع_السلاسل.md`: The integration of a new sales channel with existing strategies is still undecided. (nearest decision/evidence distance: 0.286)</li><li>`محادثة_استشارية.txt`: The founder discusses potential strategies for scaling up their business with their advisor, raising several open questions about future plans. (nearest decision/evidence distance: 0.274)</li></ul><p class="fine-print">تاريخ الفحص: 2026-07-16</p>
+  </section>
+  <section class="card">
+    <div class="card-title">🕓 النشاط الأخير</div>
+    <ul class="activity-list"><li><span class="activity-kind">سؤال تقييم (مجموعة ذهبية)</span><span class="activity-meta">2026-07-16 14:26 · 12.7 ث</span> — ما اسم المنافس الرئيسي الذي تواجهه منصة خزين في السوق؟</li><li><span class="activity-kind">سؤال تقييم (مجموعة ذهبية)</span><span class="activity-meta">2026-07-16 14:26 · 13.4 ث</span> — كم عدد الموظفين الحاليين في الفريق التقني لدى خزين؟</li><li><span class="activity-kind">سؤال تقييم (مجموعة ذهبية)</span><span class="activity-meta">2026-07-16 12:32 · 95.2 ث</span> — من هم المستثمرون الذين وافقوا على تمويل الجولة الاستثمارية الأولى لخزي</li><li><span class="activity-kind">سؤال تقييم (مجموعة ذهبية)</span><span class="activity-meta">2026-07-16 10:27 · 74.2 ث</span> — ما الأسئلة المفتوحة (Open Questions) المتعلقة بالتسعير أو النموذج الما</li><li><span class="activity-kind">سؤال تقييم (مجموعة ذهبية)</span><span class="activity-meta">2026-07-16 07:27 · 146.1 ث</span> — ما الأدلة (Evidence) الرقمية المسجَّلة في الأرشيف على وجود مشكلة حقيقي</li><li><span class="activity-kind">سؤال تقييم (مجموعة ذهبية)</span><span class="activity-meta">2026-07-16 07:26 · 62.2 ث</span> — ما القرارات (Decisions) التي اتخذها الفريق فيما يخص التوظيف؟</li><li><span class="activity-kind">سؤال تقييم (مجموعة ذهبية)</span><span class="activity-meta">2026-07-16 07:24 · 110.9 ث</span> — ما المشكلة التقنية التي ظهرت أثناء اختبار المنصة مع العملاء الأوائل، و</li><li><span class="activity-kind">سؤال تقييم (مجموعة ذهبية)</span><span class="activity-meta">2026-07-16 07:22 · 113.9 ث</span> — هل ما زال قرار التركيز حصرًا على المطاعم الصغيرة في المرحلة الأولى سار</li><li><span class="activity-kind">سؤال تقييم (مجموعة ذهبية)</span><span class="activity-meta">2026-07-16 07:20 · 92.2 ث</span> — ما اسم ميزة تنبيه نفاد المخزون الفوري، وهل تغيّرت تسميتها بين مستندات </li><li><span class="activity-kind">سؤال تقييم (مجموعة ذهبية)</span><span class="activity-meta">2026-07-16 07:19 · 76.4 ث</span> — ما الرقم الذي تكرر استخدامه كدليل على حجم الفرصة السوقية أمام أكثر من </li></ul>
+  </section>
+  <section class="card">
+    <div class="card-title">📈 الجودة والتكلفة</div>
+    <h4 class="subhead">آخر تقييم للجودة</h4><div class="stat-row"><div class="stat-tile"><span class="stat-num">3.65/5</span><span class="stat-label">المتوسط العام <span class="badge badge-bad">-0.07 ▼</span></span></div></div><ul class="decision-list"><li>الصحة: <strong>3.07</strong>/5</li><li>الالتزام بالمصادر: <strong>4.33</strong>/5</li><li>الاكتمال: <strong>2.73</strong>/5</li><li>الصدق عند الغياب: <strong>4.47</strong>/5</li></ul><p class="fine-print">تاريخ التقييم: 2026-07-16</p><h4 class="subhead">متوسط التكلفة حسب نوع العملية</h4><ul class="decision-list"><li><strong>تقرير بحثي</strong> (2 عملية) — ≈ $0.0189 / عملية، 39.2 ث</li><li><strong>فحص اتساق</strong> (2 عملية) — ≈ $0.0444 / عملية، 101.2 ث</li><li><strong>إجابة مباشرة</strong> (1 عملية) — ≈ $0.0018 / عملية، 0.8 ث</li><li><strong>تحليل مستند</strong> (1 عملية) — ≈ $0.0000 / عملية، 9.3 ث</li></ul><p class="fine-print">تكلفة سحابية افتراضية للمقارنة النسبية فقط — راجع دليل المالك، الفصل 3.</p>
+  </section>
+</div>
+<footer class="page-footer">نظامك — الجلسة السابعة · ملف ثابت لا يعتمد على خادم قائم · أعِد التوليد من الخيار 6 في <span class="en">run.py</span></footer>
+</body>
+</html>
