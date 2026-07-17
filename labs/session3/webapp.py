@@ -32,6 +32,10 @@ def index():
 
 @app.route("/api/ingest/preview")
 def ingest_preview():
+    incompatible = config.check_knowledge_base_compatibility()
+    if incompatible:
+        return jsonify({"error": incompatible}), 400
+
     try:
         scan = ingest.scan_documents()
     except FileNotFoundError:
@@ -61,6 +65,10 @@ def ingest_preview():
 
 @app.route("/api/ingest/run", methods=["POST"])
 def ingest_run():
+    incompatible = config.check_knowledge_base_compatibility()
+    if incompatible:
+        return jsonify({"error": incompatible}), 400
+
     try:
         scan = ingest.scan_documents()
     except FileNotFoundError:
@@ -94,6 +102,10 @@ def ask_question():
     if not config.CHROMA_DIR.exists():
         return jsonify({"error": "No knowledge base yet. Build it first on the Ingest tab."}), 400
 
+    incompatible = config.check_knowledge_base_compatibility()
+    if incompatible:
+        return jsonify({"error": incompatible}), 400
+
     try:
         llm, vectorstore = ask.build_resources()
         result = ask.answer_question(llm, vectorstore, question, category_filter)
@@ -107,6 +119,10 @@ def ask_question():
 def get_report():
     if not config.CHROMA_DIR.exists():
         return jsonify({"error": "No knowledge base yet. Build it first on the Ingest tab."}), 400
+
+    incompatible = config.check_knowledge_base_compatibility()
+    if incompatible:
+        return jsonify({"error": incompatible}), 400
 
     try:
         metadatas = report.collect_data()

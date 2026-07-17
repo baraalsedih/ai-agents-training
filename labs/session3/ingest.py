@@ -23,7 +23,7 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 from langchain_chroma import Chroma
 from langchain_community.document_loaders import Docx2txtLoader, PyPDFLoader, TextLoader
-from langchain_ollama import ChatOllama, OllamaEmbeddings
+from langchain_ollama import ChatOllama
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from pydantic import BaseModel, Field
 
@@ -67,6 +67,7 @@ def load_manifest() -> dict:
 
 
 def save_manifest(manifest: dict) -> None:
+    manifest["embedding_model"] = config.EMBEDDING_MODEL
     config.MANIFEST_PATH.parent.mkdir(parents=True, exist_ok=True)
     config.MANIFEST_PATH.write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8"
@@ -137,7 +138,7 @@ def scan_documents() -> dict:
 def build_resources():
     """Builds the (embeddings, llm, structured_llm, vectorstore) tuple used
     by both the CLI flow and the web UI."""
-    embeddings = OllamaEmbeddings(model=config.EMBEDDING_MODEL)
+    embeddings = config.get_embeddings()
     llm = ChatOllama(model=config.CHAT_MODEL, temperature=0)
     structured_llm = llm.with_structured_output(ChunkClassification)
     vectorstore = Chroma(
@@ -251,6 +252,11 @@ def run_ingestion(scan: dict, vectorstore, structured_llm, on_progress=None) -> 
 def main():
     print("📚 Knowledge Base Builder — Session 3")
     print(f"📁 Documents folder: {config.DOCUMENTS_DIR}\n")
+
+    incompatible = config.check_knowledge_base_compatibility()
+    if incompatible:
+        print(f"❌ {incompatible}")
+        sys.exit(1)
 
     try:
         scan = scan_documents()

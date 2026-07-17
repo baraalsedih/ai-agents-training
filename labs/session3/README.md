@@ -14,7 +14,7 @@ For the full walkthrough with sample outputs, see chapter 4 of
 2. Pull the two models this lab needs:
    ```
    ollama pull llama3.1:8b
-   ollama pull nomic-embed-text
+   ollama pull bge-m3
    ```
 3. Create and activate a virtual environment inside this folder:
    ```
@@ -24,6 +24,11 @@ For the full walkthrough with sample outputs, see chapter 4 of
 4. Install dependencies:
    ```
    pip install -r requirements.txt
+   ```
+5. (Optional) Copy `.env.example` to `.env` if you want to override any
+   default — model names, chunk size, retrieval k — without editing code:
+   ```
+   cp .env.example .env
    ```
 
 ## Run order
@@ -79,21 +84,30 @@ displays Arabic correctly.
 ## Config
 
 All tunable values (model names, chunk size/overlap, retrieval k, folder
-paths) live in `config.py`. Change them there rather than editing the
-other scripts.
+paths) live in `config.py`. Model names and the chunking/retrieval numbers
+can be overridden via a `.env` file (see `.env.example`) — same pattern as
+`labs/lab1` and `labs/lab2` — so switching models (e.g. to try `qwen2.5:7b`
+instead of `llama3.1:8b`) never requires editing code. Anything without a
+`.env` variable (folder paths, category names) is set directly in
+`config.py`.
+
+To use a different chat model, set `CHAT_MODEL` in `.env` after pulling it
+with Ollama. To use a different embedding model, set `EMBEDDING_MODEL` —
+but see the warning above: this requires deleting `knowledge_base/` and
+running `ingest.py` again from scratch, since chunks embedded by one model
+aren't compatible with another.
 
 ## Troubleshooting
 
 - **`ConnectionError` / `could not connect to ollama`** — Ollama isn't
   running. Open the Ollama app, or run `ollama serve` in a separate
   terminal, then try again.
-- **`model "llama3.1:8b" not found` (or `nomic-embed-text`)** — you haven't
+- **`model "llama3.1:8b" not found` (or `bge-m3`)** — you haven't
   pulled it yet. Run the two `ollama pull` commands from Setup above.
 - **Ingest is much slower than the printed estimate** — classification
   calls the local model once per chunk; a slower machine or a bigger model
-  (`config.CHAT_MODEL`) both increase this. Switch to `qwen2.5:7b` in
-  `config.py` if you need something faster and it's already on your
-  machine.
+  (`CHAT_MODEL`) both increase this. Set `CHAT_MODEL=qwen2.5:7b` in `.env`
+  if you need something faster and it's already on your machine.
 - **A `.pdf` file fails to load / produces empty text** — it's likely a
   scanned image PDF rather than real text. This lab does not do OCR; either
   re-export the file as text-based PDF or skip it for now.
@@ -106,14 +120,20 @@ other scripts.
   editing that source file slightly to retry it, or classify it manually by
   reviewing `report.py`'s output.
 - **Answers in `ask.py` say "I don't know" even though the info exists in
-  your documents** — either the question's wording is too different from the
-  document's wording (try rephrasing), or the relevant chunk didn't make it
-  into the top `RETRIEVAL_K` results. Try raising `RETRIEVAL_K` in
-  `config.py`, or narrowing/removing an active category filter.
+  your documents** — two different causes, in order of likelihood:
+  (1) the relevant chunk didn't make it into the top `RETRIEVAL_K` results —
+  try raising `RETRIEVAL_K` in `.env`, rephrasing the question closer to the
+  document's own wording, or narrowing/removing an active category filter;
+  (2) the chunk *was* retrieved but got buried among several less-relevant
+  ones and the local model played it safe rather than risk a wrong answer —
+  this is expected, conservative behavior from a small local model (the
+  alternative is a model that guesses and hallucinates, which is worse).
+  Asking a more specific question, or filtering to the right category first,
+  usually helps.
 - **Arabic text looks reversed or jumbled in the terminal** — this is a
   terminal rendering limitation (most terminals don't reorder RTL text
   correctly), not a bug in the data. Use `python3 webapp.py` instead — see
   the Web UI section above.
-- **Ran out of memory / machine froze during ingest or ask** — switch
-  `CHAT_MODEL` in `config.py` to a smaller model (e.g. `qwen2.5:7b`) and
-  close other memory-heavy applications.
+- **Ran out of memory / machine froze during ingest or ask** — set
+  `CHAT_MODEL=qwen2.5:7b` (or another smaller model) in `.env` and close
+  other memory-heavy applications.

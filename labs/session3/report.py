@@ -19,13 +19,12 @@ from datetime import date
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 from langchain_chroma import Chroma
-from langchain_ollama import OllamaEmbeddings
 
 import config
 
 
 def collect_data():
-    embeddings = OllamaEmbeddings(model=config.EMBEDDING_MODEL)
+    embeddings = config.get_embeddings()
     vectorstore = Chroma(
         collection_name=config.CHROMA_COLLECTION_NAME,
         embedding_function=embeddings,
@@ -111,6 +110,11 @@ def main():
 
     if not config.CHROMA_DIR.exists():
         print("❌ No knowledge base yet. Run ingest.py first.")
+        sys.exit(1)
+
+    incompatible = config.check_knowledge_base_compatibility()
+    if incompatible:
+        print(f"❌ {incompatible}")
         sys.exit(1)
 
     print("📊 Reading the knowledge base...")
