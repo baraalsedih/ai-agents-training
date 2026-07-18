@@ -24,6 +24,35 @@ import report
 
 app = Flask(__name__, static_folder="web", static_url_path="")
 
+# Cached per-process, built on first use rather than per-request. Rebuilding
+# these (an Ollama client + reopening the Chroma store) on every single
+# request was measured at ~45ms -- not the actual source of per-question
+# latency (that's the LLM generate+attribute calls in answer_question(),
+# several seconds each even with the model already warm) -- but it's still
+# wasted work on every request, and a long-lived Flask process is exactly
+# where "build once, reuse" (the same pattern ingest.py/ask.py's own CLI
+# main() already follows) belongs. A cached vectorstore instance still sees
+# writes made through a different instance pointed at the same
+# persist_directory (verified: Chroma reads through to disk on each call
+# rather than caching results on the object), so this is safe across the
+# ingest/ask/report routes without risking stale query results after ingest.
+_ingest_resources = None
+_ask_resources = None
+
+
+def _cached_ingest_resources():
+    global _ingest_resources
+    if _ingest_resources is None:
+        _ingest_resources = ingest.build_resources()
+    return _ingest_resources
+
+
+def _cached_ask_resources():
+    global _ask_resources
+    if _ask_resources is None:
+        _ask_resources = ask.build_resources()
+    return _ask_resources
+
 
 @app.route("/")
 def index():
@@ -79,7 +108,7 @@ def ingest_run():
 
     log = []
     try:
-        _, _, structured_llm, vectorstore = ingest.build_resources()
+        _, _, structured_llm, vectorstore = _cached_ingest_resources()
         counts = ingest.run_ingestion(scan, vectorstore, structured_llm, on_progress=log.append)
     except Exception as e:
         return jsonify({"error": str(e), "log": log}), 500
@@ -107,7 +136,7 @@ def ask_question():
         return jsonify({"error": incompatible}), 400
 
     try:
-        llm, vectorstore = ask.build_resources()
+        llm, vectorstore = _cached_ask_resources()
         result = ask.answer_question(llm, vectorstore, question, category_filter)
     except Exception as e:
         return jsonify({"error": str(e)}), 500

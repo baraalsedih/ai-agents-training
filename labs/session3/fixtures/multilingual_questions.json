@@ -1,0 +1,73 @@
+{
+  "description": "Example questions for manually or programmatically exercising ask.py's cross-lingual retrieval, generation, and source attribution against the mixed Arabic/English sample archive (6 Arabic docs + my_documents/investor_update_q1.md, English). Grounded in content known to exist in that archive as of 2026-07-18 -- if my_documents/ changes, expected_sources may need updating.",
+  "questions": [
+    {
+      "id": 1,
+      "language": "ar",
+      "kind": "same-language",
+      "question": "ما هي النسبة المئوية لأصحاب المطاعم الذين أبدوا استعدادًا للدفع شهريًا؟",
+      "expected_sources": ["دراسة_سوق_مصغرة.md"],
+      "notes": "Baseline: Arabic question, Arabic source."
+    },
+    {
+      "id": 2,
+      "language": "en",
+      "kind": "same-language",
+      "question": "How many restaurants are in the current pilot cohort?",
+      "expected_sources": ["investor_update_q1.md"],
+      "notes": "Baseline: English question, English source."
+    },
+    {
+      "id": 3,
+      "language": "ar",
+      "kind": "cross-lingual-ar-to-en",
+      "question": "ما هي الفكرة الجديدة التي اقترحها أحد العملاء بخصوص تنبيهات نفاد المخزون؟",
+      "expected_sources": ["investor_update_q1.md"],
+      "notes": "Known flaky: retrieval consistently ranks the right chunk (~#4 of 8), but generation sometimes answers with a related-but-wrong concept ('instant notifications' decision from ملاحظات_اجتماع.txt) instead of the SMS idea, and was observed once returning an 'I don't know' response via the interactive CLI that did not reproduce in 4 direct temperature=0 trials -- likely session state (e.g. a leftover active category filter) rather than a deterministic generation bug. Not yet root-caused."
+    },
+    {
+      "id": 4,
+      "language": "ar",
+      "kind": "cross-lingual-ar-to-en",
+      "question": "هل ما زال قرار التسعير (اشتراك شهري أم حسب عدد الأصناف) محسومًا؟",
+      "expected_sources": ["investor_update_q1.md"]
+    },
+    {
+      "id": 5,
+      "language": "en",
+      "kind": "cross-lingual-en-to-ar",
+      "question": "What did the market study find about restaurants' current inventory tracking methods?",
+      "expected_sources": ["دراسة_سوق_مصغرة.md"]
+    },
+    {
+      "id": 6,
+      "language": "en",
+      "kind": "cross-lingual-en-to-ar",
+      "question": "Why did the team decide to prioritize instant out-of-stock notifications over a weekly report?",
+      "expected_sources": ["ملاحظات_اجتماع.txt"]
+    },
+    {
+      "id": 7,
+      "language": "en",
+      "kind": "cross-lingual-en-to-ar",
+      "question": "Is there an unresolved question about business licensing for expansion?",
+      "expected_sources": ["خطة_العمل.md"]
+    },
+    {
+      "id": 8,
+      "language": "ar",
+      "kind": "multi-source",
+      "question": "ما الأدلة المتكررة عبر أكثر من مصدر حول حجم خسارة أصحاب المطاعم الشهرية؟",
+      "expected_sources": ["دراسة_سوق_مصغرة.md", "investor_update_q1.md"],
+      "notes": "The ~$300/month figure appears independently in both an Arabic market study and the English investor update -- good stress test of whether attribution cites both or just one."
+    },
+    {
+      "id": 9,
+      "language": "en",
+      "kind": "multi-source",
+      "question": "What expansion city was decided on, and is that consistent across sources?",
+      "expected_sources": ["قرار_مجلس_استشاري_توسّع_السلاسل.md", "investor_update_q1.md"],
+      "notes": "Retrieval ranks investor_update_q1.md #1 of 8. Model reliably answers the factual half correctly ('Sahel', 4/4 direct trials) but silently ignores the 'is that consistent across sources?' half rather than actually comparing across documents -- observed once returning 'I don't know' via the interactive CLI, not reproduced directly. Same open question as #3 about whether that was session state (leftover filter) or genuine flakiness."
+    }
+  ]
+}

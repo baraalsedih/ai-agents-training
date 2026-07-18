@@ -32,7 +32,13 @@ CHROMA_COLLECTION_NAME = "knowledge_base"
 # Chat model used for classification (ingest.py) and answer generation
 # (ask.py). Pull it first: `ollama pull llama3.1:8b`
 # Override in .env as CHAT_MODEL=... — e.g. qwen2.5:7b if your machine is
-# slower or you don't want to download another ~5GB model.
+# slower or you don't want to download another ~5GB model. Trade-off worth
+# knowing: qwen2.5:7b measurably leaks Chinese/Korean text into answers
+# more often than llama3.1:8b in this pipeline (observed on broad/summary
+# questions like "what's the company about?" — 2/5 clean vs 5/5 clean in
+# side-by-side testing). ask.py retries and falls back to an honest
+# failure message rather than showing garbled text, but if you hit that
+# message often, switching back to llama3.1:8b is the real fix.
 CHAT_MODEL = os.getenv("CHAT_MODEL", "llama3.1:8b")
 
 # Embedding model. This MUST stay identical for the entire life of a given
